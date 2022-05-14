@@ -1,0 +1,45 @@
+title = "StoryWiki"
+
+[[continuities]]
+display_name = "Books"
+reference_name = "books"
+
+[[releases.books]]
+display_name = "Book 1"
+reference_name = "b1"
+begins_group = "Original Trilogy"
+
+[[releases.books]]
+display_name = "Book 2"
+reference_name = "b2"
+
+[[releases.books]]
+display_name = "Book 3"
+reference_name = "b3"
+
+[[releases.books]]
+display_name = "Book 4"
+reference_name = "b4"
+begins_group = "Second Trilogy"
+
+[[pages.books]]
+display_name = "Index"
+reference_name = "index"
+resource_path = "site-content/books/index.md"
+
+[[pages.books]]
+display_name = "Johan"
+reference_name = "johan"
+resource_path = "site-content/books/johan.md"
+title_peers = ["john"]
+
+[[pages.books]]
+display_name = "Palace"
+reference_name = "palace"
+resource_path = "site-content/books/palace.md"
+
+[[pages.books]]
+display_name = "The War"
+reference_name = "war"
+resource_path = "site-content/books/war.md"
+show_cond = ["o-b3"]

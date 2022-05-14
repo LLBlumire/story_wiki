@@ -1,0 +1,46 @@
+[package]
+name = "story-wiki-core"
+version = "0.1.0"
+edition = "2021"
+
+# === Serde ===
+#
+# `serde` provides serialization and deserialization for core types
+#
+# == Features ==
+#
+# `std` provides serialization for standard library types
+#
+# `derive` provides automatic implementation derive macros
+#
+[dependencies.serde]
+version = "1.0.136"
+default-features = false
+features = ["derive"]
+
+#  === Xorf ===
+#
+# `xorf` provides Xor filters that enable efficient runtime approximation of set
+# membership at the cost of higher initialisation cost
+# 
+# == Features ==
+# 
+# `serde` provides support for serialization and deserialization
+#
+# `uniform-random` improves false positive rate at the cost of even higher 
+# initialisation cost
+# 
+[dependencies.xorf]
+version = "0.8.0"
+features = ["serde", "uniform-random"]
+default-features = false
+
+
+# === Pulldown Cmark ===
+#
+# Parses commonmark for cleaning
+#
+[dependencies.pulldown-cmark]
+version = "0.9.1"
+default-features = false
+features = []

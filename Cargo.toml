@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "packages/story-wiki-cli",
+    "packages/story-wiki-core",
+    "packages/story-wiki"
+]

@@ -1,0 +1,239 @@
+/* === FONT DECLARATIONS === */
+@font-face{font-family:charter;font-style:normal;font-weight:400;font-stretch:normal;src:url('charter_regular.woff2') format('woff2')}@font-face{font-family:charter;font-style:italic;font-weight:400;font-stretch:normal;src:url('charter_italic.woff2') format('woff2')}@font-face{font-family:charter;font-style:normal;font-weight:700;font-stretch:normal;src:url('charter_bold.woff2') format('woff2')}@font-face{font-family:charter;font-style:italic;font-weight:700;font-stretch:normal;src:url('charter_bold_italic.woff2') format('woff2')}
+
+/* === ANDY BELLS MODERN CSS RESET === */
+*,::after,::before{box-sizing:border-box}blockquote,body,dd,dl,figure,h1,h2,h3,h4,p{margin:0}ol[role=list],ul[role=list]{list-style:none}html:focus-within{scroll-behavior:smooth}body{min-height:100vh}a:not([class]){text-decoration-skip-ink:auto}img,picture{max-width:100%;display:block}button,input,select,textarea{font:inherit}@media (prefers-reduced-motion:reduce){html:focus-within{scroll-behavior:auto}*,::after,::before{animation-duration:0s!important;animation-iteration-count:1!important;transition-duration:0s!important;scroll-behavior:auto!important}}
+
+/* === FLUID TYPE SCALE === */
+/* @link https://utopia.fyi/type/calculator?c=320,15,1.125,1140,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
+:root {
+    --step--2: clamp(0.74rem, calc(0.72rem + 0.12vw), 0.80rem);
+    --step--1: clamp(0.83rem, calc(0.77rem + 0.33vw), 1.00rem);
+    --step-0: clamp(0.94rem, calc(0.82rem + 0.61vw), 1.25rem);
+    --step-1: clamp(1.06rem, calc(0.86rem + 0.99vw), 1.56rem);
+    --step-2: clamp(1.19rem, calc(0.89rem + 1.50vw), 1.95rem);
+    --step-3: clamp(1.34rem, calc(0.90rem + 2.16vw), 2.44rem);
+    --step-4: clamp(1.50rem, calc(0.90rem + 3.02vw), 3.05rem);
+    --step-5: clamp(1.69rem, calc(0.86rem + 4.15vw), 3.82rem);
+}
+
+/* === FLUID SPACE SCALE === */
+/* @link https://utopia.fyi/space/calculator?c=320,15,1.2,1140,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,l-3xl */
+
+:root {
+    --space-3xs: clamp(0.25rem, calc(0.23rem + 0.12vw), 0.31rem);
+    --space-2xs: clamp(0.50rem, calc(0.45rem + 0.24vw), 0.63rem);
+    --space-xs: clamp(0.69rem, calc(0.59rem + 0.49vw), 0.94rem);
+    --space-s: clamp(0.94rem, calc(0.82rem + 0.61vw), 1.25rem);
+    --space-m: clamp(1.44rem, calc(1.27rem + 0.85vw), 1.88rem);
+    --space-l: clamp(1.88rem, calc(1.63rem + 1.22vw), 2.50rem);
+    --space-xl: clamp(2.81rem, calc(2.45rem + 1.83vw), 3.75rem);
+    --space-2xl: clamp(3.75rem, calc(3.26rem + 2.44vw), 5.00rem);
+    --space-3xl: clamp(5.63rem, calc(4.89rem + 3.66vw), 7.50rem);
+  
+    /* One-up pairs */
+    --space-3xs-2xs: clamp(0.25rem, calc(0.10rem + 0.73vw), 0.63rem);
+    --space-2xs-xs: clamp(0.50rem, calc(0.33rem + 0.85vw), 0.94rem);
+    --space-xs-s: clamp(0.69rem, calc(0.47rem + 1.10vw), 1.25rem);
+    --space-s-m: clamp(0.94rem, calc(0.57rem + 1.83vw), 1.88rem);
+    --space-m-l: clamp(1.44rem, calc(1.02rem + 2.07vw), 2.50rem);
+    --space-l-xl: clamp(1.88rem, calc(1.14rem + 3.66vw), 3.75rem);
+    --space-xl-2xl: clamp(2.81rem, calc(1.96rem + 4.27vw), 5.00rem);
+    --space-2xl-3xl: clamp(3.75rem, calc(2.29rem + 7.32vw), 7.50rem);
+  
+    /* Custom pairs */
+    --space-l-3xl: clamp(1.88rem, calc(-0.32rem + 10.98vw), 7.50rem);
+}
+
+/* === BASE TYPOGRAPHY === */
+html {
+    font-family: charter, sans-serif;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1;
+    line-height: 1.5;
+}
+h1 {
+    font-size: var(--step-5);
+}
+h2 {
+    font-size: var(--step-4);
+}
+h3, .site-name {
+    font-size: var(--step-3);
+    font-weight: bold;
+}
+h4 {
+    font-size: var(--step-2);
+}
+h5, blockquote {
+    font-size: var(--step-1);
+}
+p {
+    font-size: var(--step-0);
+}
+code {
+    font-size: var(--step--1);
+}
+
+/* === COLOURS === */
+:root {
+    --neutral-0: rgb(0% 0% 0%);
+    --neutral-10: rgb(10.77% 10.77% 10.77%);
+    --neutral-95: rgb(94.35% 94.35% 94.35%);
+    --neutral-85: rgb(83.23% 83.23% 83.23%);
+}
+html {
+    color: var(--neutral-10);
+    background-color: var(--neutral-95);
+}
+pre, :not(pre) > code {
+    background-color: var(--neutral-85);
+    color: var(--neutral-0);
+    padding: var(--space-3xs);
+    border-radius: 0.1rem;
+}
+pre {
+    overflow-x: auto;
+}
+aside {
+    background-color: white;
+}
+
+/* === LAYOUTS === */
+body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+    overflow-y: scroll;
+}
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-content: flex-end;
+    align-items: baseline;
+    flex-wrap: wrap-reverse;
+    gap: var(--space-l-3xl);
+    padding-inline: var(--space-m);
+
+}
+article, section {
+    flex-grow: 1;
+    flex-basis: 70ch;
+    max-width: min(100%, 70ch);
+}
+aside {
+    flex-grow: 1;
+    flex-basis: 50ch;
+    max-width: min(100%, 50ch);
+}
+article *, section * {
+    margin-block: 0;
+}
+article * + *, section * + * {
+    margin-top: 1em;
+}
+header,
+footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    padding: var(--space-s);
+    justify-content: space-between;
+}
+header input, header select, footer button {
+    height: var(--space-l);
+    border: 1px solid var(--neutral-10);
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+}
+header select,
+header input[type="search"], 
+footer button {
+    padding-inline: var(--space-s);
+}
+header input[type="search"] {
+    text-align: left;
+    cursor: unset;
+}
+header input:hover,
+header input:focus-visible,
+header select:hover,
+header select:focus-visible,
+footer button:hover,
+footer button:focus-visible {
+    outline: 1px solid blue;
+}
+
+header > * {
+    flex-grow: 1;
+}
+header > form {
+    flex-grow: 99999;
+    gap: var(--space-3xs);
+    display: flex;
+}
+header > form > input[type="search"] {
+    flex-grow: 1;
+}
+header > form > input[type="submit"] {
+    aspect-ratio: 1 / 1;
+}
+header .site-name {
+    text-align: center;
+}
+footer > a {
+    font-style: italic;
+}
+aside {
+    border: 1px solid var(--neutral-10);
+    padding: var(--space-m);
+}
+.search-result {
+    list-style: none;
+    font-size: var(--step-2);
+}
+.search-result a {
+    text-decoration: none;
+}
+
+/* === Story Wiki === */
+
+span[data-cite-kind="observed-tag"],
+span[data-cite-kind="excluded-tag"] {
+    padding-inline: var(--space-3xs);
+    margin-inline-start: var(--space-3xs);
+}
+
+span[data-cite-kind="observed-content"] {
+    text-decoration: underline;
+    text-decoration-color: green;
+}
+span[data-cite-kind="excluded-content"] {
+    text-decoration: line-through;
+    text-decoration-color: red;
+}
+span[data-cite-kind="observed-content"]:hover span[data-cite-kind="observed-tag"] {
+    background-color: green;
+    text-decoration-color: white;
+    text-decoration: underline;
+    color: white;
+}
+span[data-cite-kind="observed-tag"] {
+    border: 1px solid green;
+    border-radius: 0.25rem;
+}
+span[data-cite-kind="excluded-content"]:hover span[data-cite-kind="excluded-tag"] {
+    background-color: red;
+    text-decoration-color: white;
+    text-decoration: line-through;
+    color: white;
+}
+span[data-cite-kind="excluded-tag"] {
+    border: 1px solid red;
+    border-radius: 0.25rem;
+}

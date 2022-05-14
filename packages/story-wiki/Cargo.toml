@@ -1,0 +1,185 @@
+[package]
+name = "story-wiki"
+version = "0.1.0"
+edition = "2021"
+
+# === Story Wiki Core ===
+#
+# `story-wiki-core` provides underlying types that are used by multiple of the
+# Story Wiki packages.
+#
+[dependencies.story-wiki-core]
+path = "../story-wiki-core"
+
+# === Get Random ===
+#
+# `getrandom` is a sub-dependency needed by story-wiki-core, we use it here only
+# to force enable the `js` feature.
+#
+# == FEATURES ==
+#
+# `js` enables support for using the web browsers random number generator
+#
+[dependencies.getrandom]
+version = "0.2.6"
+default-features = false
+features = ["js"]
+
+# === Yew ===
+#
+# `yew` provides our functional approach to front end web components written in
+# rust and powered by WebAssembly.
+#
+# == FEATURES ==
+# 
+# `csr` enables the client side rendering functionality used to run `yew` 
+# applications in a web browser frontend.
+#
+[dependencies.yew]
+git = "https://github.com/yewstack/yew"
+default-features = false
+features = ["csr"]
+
+# === Yew Router ===
+#
+# `yew-router` provides browser history based routing support for single page
+#  web applications, in a way that integrates with `yew`.
+#
+[dependencies.yew-router]
+git = "https://github.com/yewstack/yew"
+default-features = false
+features = []
+
+# === Yewdux ===
+#
+# `yewdux` provides greatly simplified global state management for `yew`.
+#
+[dependencies.yewdux]
+git = "https://github.com/intendednull/yewdux"
+default-features = false
+features = []
+
+# === Web Sys ===
+#
+# `web-sys` provides bindings to native browser javascript APIs, providing
+# convenient methods to remove the need to write manual `wasm_bindgen`
+# imlementations.
+#
+# == FEATURES ==
+#
+# The features of `web-sys` enable different parts of the browser native API,
+# if it is enabled here, it is safe to assume it is being used.
+#
+[dependencies.web-sys]
+version = "0.3.57"
+default-features = false
+features = ["HtmlSelectElement", "Url"]
+
+# === Gloo Events ===
+#
+# `gloo-events` provides more ergonomic bindings to the native javascript API
+# for setting event listeners. This is used to respond to storage changes to the
+# active release that happen in other contexts (tabs windows).
+#
+[dependencies.gloo-events]
+version = "0.1.2"
+default-features = false
+features = []
+
+# === WASM Bindgen Futures ===
+#
+# `wasm-bindgen-futures` provides an async runtime for rust that is able to run
+# in the browser. Enabling consumption of async APIs.
+#
+[dependencies.wasm-bindgen-futures]
+version = "0.4.30"
+default-features = false
+features = []
+
+
+# === Reqwasm ===
+#
+# `reqwasm` provides more ergonomic access to the underlying browser fetch api.
+#
+# == FEATURES ==
+#
+# `http` enables support for the http fetch api (as distinct from websockets)
+#
+[dependencies.reqwasm]
+version = "0.5.0"
+default-features = false
+features = ["http"]
+
+# === Log ===
+# 
+# `log` provides a logging facade that many crates use, combined with an
+# implementation (see WASM Logger) it enables runtime agnostic logging.
+#
+[dependencies.log]
+version = "0.4.16"
+default-features = false
+features = []
+
+# === WASM Logger ===
+# 
+# `wasm-logger` provides a logging implementation that runs in the console in
+# web browsers, plugging into the common `log` logging facade.
+[dependencies.wasm-logger]
+version = "0.2.0"
+default-features = false
+features = []
+
+# === Serde ===
+#
+# `serde` provides serialization and deserialization functionality in a format
+# independent fashion.
+#
+# == FEATURES ==
+#
+# `derive` is used to derive serialization and deserialization for search
+# queries and local storage.
+#
+# `rc` enables deserialization into and from `std::rc::Rc`.
+#
+[dependencies.serde]
+version = "1.0.136"
+default-features = false
+features = ["derive", "rc"]
+
+# === TOML ===
+#
+# `toml` provides serialization and deserialization for Toms Obvious Minimal
+# Language. This is used for the core manifest format.
+#
+[dependencies.toml]
+version = "0.5.9"
+default-features = false
+features = []
+
+# === RMP Serde ===
+#
+# `rmp-serde` provides serialization and deserialization for the MessagePack
+# binary format. This is used for the search index.
+#
+[dependencies.rmp-serde]
+version = "1.0.0"
+default-features = false
+features = []
+
+# === Pulldown Cmark ===
+#
+# Parses commonmark for rendering
+#
+[dependencies.pulldown-cmark]
+version = "0.9.1"
+default-features = false
+features = []
+
+# === Quick XML ===
+#
+# Parses xml (html) from Pulldown Cmark for rendering
+#
+[dependencies.quick-xml]
+version = "0.22.0"
+default-features = false
+features = []
