@@ -1,9 +1,7 @@
 use yew::prelude::*;
-use yew_router::hooks::use_route;
 
 use crate::components::picker::{OptionSegment, Picker, PickerFeed};
 use crate::hooks::continuity_switcher::use_active_continuity;
-use crate::routes::Route;
 use crate::states::active_release::{use_active_release_switcher, use_active_release_tracker};
 use crate::states::manifest::{use_manifest, Continuity, Release};
 
