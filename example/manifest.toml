@@ -4,6 +4,10 @@ title = "StoryWiki"
 display_name = "Books"
 reference_name = "books"
 
+[[continuities]]
+display_name = "TV & Movie"
+reference_name = "tv_movie"
+
 [[releases.books]]
 display_name = "Book 1"
 reference_name = "b1"
@@ -22,10 +26,46 @@ display_name = "Book 4"
 reference_name = "b4"
 begins_group = "Second Trilogy"
 
+[[releases.tv_movie]]
+display_name = "Episode 1"
+reference_name = "e1"
+begins_group = "Season 1"
+
+[[releases.tv_movie]]
+display_name = "Episode 2"
+reference_name = "e2"
+
+[[releases.tv_movie]]
+display_name = "Episode 3"
+reference_name = "e3"
+
+[[releases.tv_movie]]
+display_name = "Episode 4"
+reference_name = "e4"
+
+[[releases.tv_movie]]
+display_name = "Episode 5"
+reference_name = "e5"
+
+[[releases.tv_movie]]
+display_name = "Episode 6"
+reference_name = "e6"
+
+[[releases.tv_movie]]
+display_name = "Movie"
+reference_name = "movie"
+begins_group = ""
+
+
 [[pages.books]]
 display_name = "Index"
 reference_name = "index"
 resource_path = "site-content/books/index.md"
+
+[[pages.tv_movie]]
+display_name = "Index"
+reference_name = "index"
+resource_path = "site-content/tv_movie/index.md"
 
 [[pages.books]]
 display_name = "Johan"
@@ -33,10 +73,22 @@ reference_name = "johan"
 resource_path = "site-content/books/johan.md"
 title_peers = ["john"]
 
+[[pages.tv_movie]]
+display_name = "John"
+reference_name = "john"
+resource_path = "site-content/tv_movie/john.md"
+title_peers = ["johan"]
+
+
 [[pages.books]]
 display_name = "Palace"
 reference_name = "palace"
 resource_path = "site-content/books/palace.md"
+
+[[pages.tv_movie]]
+display_name = "Palace"
+reference_name = "palace"
+resource_path = "site-content/tv_movie/palace.md"
 
 [[pages.books]]
 display_name = "The War"
