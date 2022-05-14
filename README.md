@@ -181,11 +181,11 @@ In addition, the power of releases in StoryWiki is available here, you can use c
 
 ```html
 <o-{RELEASE_REFERENCE}>
-This text will show if you have observed {CONTINUITY_PREFIX}{RELEASE_REFERENCE}.
+This text will show if you have observed {RELEASE_REFERENCE}.
 </o-{RELEASE_REFERENCE}>
 
 <x-{RELEASE_REFERENCE}>
-This will NOT show if you have observed {CONTINUITY_PREFIX}{RELEASE_REFERENCE}.
+This will NOT show if you have observed {RELEASE_REFERENCE}.
 </x-{RELEASE_REFERENCE}>
 ```
 
