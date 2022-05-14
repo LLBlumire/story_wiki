@@ -1,12 +1,12 @@
-use story_wiki_core::manifest::Manifest;
 use yew::prelude::*;
-use yew_router::{history::HistoryResult, prelude::*};
+use yew_router::history::HistoryResult;
+use yew_router::prelude::*;
 
-use crate::{
-    routes::{search::SearchQuery, Route},
-    states::manifest::use_manifest,
-    utils::{downloadable_resource::DownloadableResource, irc::Irc},
-};
+use crate::routes::search::SearchQuery;
+use crate::routes::Route;
+use crate::states::manifest::{use_manifest, Manifest};
+use crate::utils::downloadable_resource::DownloadableResource;
+use crate::utils::irc::Irc;
 
 #[derive(Debug, Clone)]
 pub struct ContinuitySwithcerHandle {

@@ -1,15 +1,11 @@
-use story_wiki_core::manifest::{Continuity, Release};
 use yew::prelude::*;
 use yew_router::hooks::use_route;
 
-use crate::{
-    components::picker::{OptionSegment, Picker, PickerFeed},
-    routes::Route,
-    states::{
-        active_release::{use_active_release_switcher, use_active_release_tracker},
-        manifest::use_manifest,
-    }, hooks::continuity_switcher::use_active_continuity,
-};
+use crate::components::picker::{OptionSegment, Picker, PickerFeed};
+use crate::hooks::continuity_switcher::use_active_continuity;
+use crate::routes::Route;
+use crate::states::active_release::{use_active_release_switcher, use_active_release_tracker};
+use crate::states::manifest::{use_manifest, Continuity, Release};
 
 #[function_component]
 pub fn ReleasePicker() -> Html {

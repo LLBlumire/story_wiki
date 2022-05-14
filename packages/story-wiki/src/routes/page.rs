@@ -1,15 +1,13 @@
 use yew::prelude::*;
 use yew_router::hooks::use_navigator;
 
-use crate::{
-    components::page_render::PageRender,
-    hooks::continuity_switcher::use_active_continuity,
-    routes::{search::SearchQuery, Route},
-    states::{
-        active_release::use_active_release_tracker, manifest::use_manifest,
-        title::use_title_switcher,
-    },
-};
+use crate::components::page_render::PageRender;
+use crate::hooks::continuity_switcher::use_active_continuity;
+use crate::routes::search::SearchQuery;
+use crate::routes::Route;
+use crate::states::active_release::use_active_release_tracker;
+use crate::states::manifest::use_manifest;
+use crate::states::title::use_title_switcher;
 
 #[derive(PartialEq, Properties)]
 pub struct RoutePageProps {

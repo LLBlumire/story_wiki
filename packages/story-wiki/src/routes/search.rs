@@ -1,27 +1,17 @@
-use std::{
-    collections::{HashMap, HashSet},
-    iter::empty,
-};
+use std::collections::{HashMap, HashSet};
+use std::iter::empty;
 
 use serde::{Deserialize, Serialize};
-use story_wiki_core::{
-    cond::should_show,
-    manifest::{CategoryCond, KeywordsCond, TitlePeerCond},
-};
 use yew::prelude::*;
-use yew_router::{
-    components::Link,
-    hooks::{use_location, use_navigator},
-};
+use yew_router::components::Link;
+use yew_router::hooks::{use_location, use_navigator};
 
-use crate::{
-    hooks::continuity_switcher::use_active_continuity,
-    routes::Route,
-    states::{
-        active_release::use_active_release_tracker, manifest::use_manifest,
-        title::use_title_switcher,
-    },
-};
+use crate::hooks::continuity_switcher::use_active_continuity;
+use crate::routes::Route;
+use crate::states::active_release::use_active_release_tracker;
+use crate::states::manifest::{use_manifest, CategoryCond, KeywordsCond, TitlePeerCond};
+use crate::states::title::use_title_switcher;
+use crate::utils::cond::should_show;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SearchQuery {

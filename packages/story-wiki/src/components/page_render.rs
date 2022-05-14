@@ -1,9 +1,8 @@
 use yew::prelude::*;
 
-use crate::{
-    components::md_render::MdRender, states::pages::use_page,
-    utils::downloadable_resource::DownloadableResource,
-};
+use crate::components::md_render::MdRender;
+use crate::states::pages::use_page;
+use crate::utils::downloadable_resource::DownloadableResource;
 
 #[derive(PartialEq, Properties)]
 pub struct PageRenderProps {

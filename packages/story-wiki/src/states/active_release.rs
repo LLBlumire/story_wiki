@@ -1,22 +1,16 @@
-use std::{
-    collections::{HashMap, HashSet},
-    rc::Rc,
-    sync::Once,
-};
+use std::collections::{HashMap, HashSet};
+use std::rc::Rc;
+use std::sync::Once;
 
 use gloo_events::EventListener;
 use serde::{Deserialize, Serialize};
-use story_wiki_core::manifest::Manifest;
 use yew::prelude::*;
-use yewdux::{
-    prelude::*,
-    storage::{load, save, Area},
-};
+use yewdux::prelude::*;
+use yewdux::storage::{load, save, Area};
 
-use crate::{
-    states::manifest::use_manifest,
-    utils::{downloadable_resource::DownloadableResource, irc::Irc},
-};
+use crate::states::manifest::{use_manifest, Manifest};
+use crate::utils::downloadable_resource::DownloadableResource;
+use crate::utils::irc::Irc;
 
 static STATE_LISTENER_ON: Once = Once::new();
 

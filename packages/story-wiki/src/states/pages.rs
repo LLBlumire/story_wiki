@@ -4,7 +4,9 @@ use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 use yewdux::prelude::*;
 
-use crate::utils::{downloadable_resource::DownloadableResource, fetch::fetch_text, irc::Irc};
+use crate::utils::downloadable_resource::DownloadableResource;
+use crate::utils::fetch::fetch_text;
+use crate::utils::irc::Irc;
 
 #[derive(Default, Clone, PartialEq, Store)]
 struct State {

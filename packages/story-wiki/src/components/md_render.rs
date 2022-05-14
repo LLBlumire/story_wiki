@@ -1,24 +1,17 @@
 use std::collections::{HashMap, HashSet};
 
-use pulldown_cmark::{
-    escape::{escape_href, escape_html},
-    Alignment, CodeBlockKind, CowStr, Event, LinkType, Options, Parser, Tag,
-};
-use quick_xml::{events::Event as XmlEvent, Reader as XmlReader};
-use story_wiki_core::manifest::Manifest;
-use yew::{
-    prelude::*,
-    virtual_dom::{VList, VNode, VTag, VText},
-};
+use pulldown_cmark::escape::{escape_href, escape_html};
+use pulldown_cmark::{Alignment, CodeBlockKind, CowStr, Event, LinkType, Options, Parser, Tag};
+use quick_xml::events::Event as XmlEvent;
+use quick_xml::Reader as XmlReader;
+use yew::prelude::*;
+use yew::virtual_dom::{VList, VNode, VTag, VText};
 
-use crate::{
-    states::{
-        active_release::use_active_release_tracker, manifest::use_manifest,
-        release_citations::use_release_citations,
-    },
-    try_html,
-    utils::irc::Irc,
-};
+use crate::states::active_release::use_active_release_tracker;
+use crate::states::manifest::{use_manifest, Manifest};
+use crate::states::release_citations::use_release_citations;
+use crate::try_html;
+use crate::utils::irc::Irc;
 
 #[derive(PartialEq, Properties)]
 pub struct MdRenderProps {

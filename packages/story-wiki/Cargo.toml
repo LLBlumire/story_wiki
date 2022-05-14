@@ -3,14 +3,6 @@ name = "story-wiki"
 version = "0.1.0"
 edition = "2021"
 
-# === Story Wiki Core ===
-#
-# `story-wiki-core` provides underlying types that are used by multiple of the
-# Story Wiki packages.
-#
-[dependencies.story-wiki-core]
-path = "../story-wiki-core"
-
 # === Get Random ===
 #
 # `getrandom` is a sub-dependency needed by story-wiki-core, we use it here only

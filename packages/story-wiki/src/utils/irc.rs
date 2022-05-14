@@ -1,4 +1,5 @@
-use std::{ops::Deref, rc::Rc};
+use std::ops::Deref;
+use std::rc::Rc;
 
 /// An immutable reference counter, while it does not prevent you from doing
 /// interior mutability, its PartialEq implementation will make any interior

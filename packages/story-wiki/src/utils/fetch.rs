@@ -1,6 +1,7 @@
 use reqwasm::http::{Request, Response};
-use story_wiki_core::manifest::Manifest;
 use web_sys::{window, Url};
+
+use crate::states::manifest::Manifest;
 
 pub async fn fetch_manifest() -> Option<Manifest> {
     let text = fetch_text("/manifest.toml").await?;

@@ -1,7 +1,8 @@
 use yew::prelude::*;
 use yew_router::hooks::use_navigator;
 
-use crate::{routes::Route, states::manifest::use_manifest};
+use crate::routes::Route;
+use crate::states::manifest::use_manifest;
 
 #[function_component]
 pub fn RouteRoot() -> Html {

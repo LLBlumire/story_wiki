@@ -1,12 +1,9 @@
-use story_wiki_core::manifest::{Continuity, Manifest};
 use yew::prelude::*;
 
 use super::OptionSegment;
-use crate::{
-    components::picker::{Picker, PickerFeed},
-    hooks::continuity_switcher::{use_continuity_switcher, ContinuitySwithcerHandle},
-    states::manifest::use_manifest,
-};
+use crate::components::picker::{Picker, PickerFeed};
+use crate::hooks::continuity_switcher::{use_continuity_switcher, ContinuitySwithcerHandle};
+use crate::states::manifest::{use_manifest, Continuity, Manifest};
 
 #[function_component]
 pub fn ContinuityPicker() -> Html {

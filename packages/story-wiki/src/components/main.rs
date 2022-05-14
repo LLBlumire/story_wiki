@@ -1,12 +1,13 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use crate::{
-    components::{footer::Footer, header::Header, set_title::SetTitle},
-    hooks::continuity_switcher::use_active_continuity,
-    routes::{switch, Route},
-    states::{manifest::use_manifest, title::use_title_switcher},
-};
+use crate::components::footer::Footer;
+use crate::components::header::Header;
+use crate::components::set_title::SetTitle;
+use crate::hooks::continuity_switcher::use_active_continuity;
+use crate::routes::{switch, Route};
+use crate::states::manifest::use_manifest;
+use crate::states::title::use_title_switcher;
 
 /// The entry point for StoryWiki, intended to be attached to the body of a website.
 #[function_component]

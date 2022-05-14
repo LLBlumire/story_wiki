@@ -2,14 +2,12 @@ use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use yew_router::hooks::{use_location, use_navigator};
 
-use crate::{
-    components::{
-        picker::continuity_picker::ContinuityPicker, picker::release_picker::ReleasePicker,
-    },
-    hooks::continuity_switcher::use_active_continuity,
-    routes::{search::SearchQuery, Route},
-    states::manifest::use_manifest,
-};
+use crate::components::picker::continuity_picker::ContinuityPicker;
+use crate::components::picker::release_picker::ReleasePicker;
+use crate::hooks::continuity_switcher::use_active_continuity;
+use crate::routes::search::SearchQuery;
+use crate::routes::Route;
+use crate::states::manifest::use_manifest;
 
 /// Renders the header of StoryWiki
 ///

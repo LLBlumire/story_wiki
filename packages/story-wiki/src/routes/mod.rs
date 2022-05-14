@@ -18,16 +18,13 @@ pub enum Route {
     Root,
 
     #[at("/page/:page_reference")]
-    DefaultContinuityPage {
-        page_reference: String,
-    },
+    DefaultContinuityPage { page_reference: String },
 
     #[at("/:continuity_reference/page/:page_reference")]
     Page {
         continuity_reference: String,
         page_reference: String,
     },
-
 
     #[at("/search")]
     DefaultContinuitySearch,
@@ -64,7 +61,10 @@ impl Route {
         {
             *continuity_reference = new_continuity;
         } else if let Route::DefaultContinuityPage { page_reference } = self {
-            self = Route::Page { page_reference, continuity_reference: new_continuity }
+            self = Route::Page {
+                page_reference,
+                continuity_reference: new_continuity,
+            }
         }
         self
     }
@@ -74,9 +74,10 @@ pub fn switch(routes: &Route) -> Html {
     log::trace!("Rendering Route Switcher");
     match routes.clone() {
         Route::Root => html! { <RouteRoot /> },
-        Route::DefaultContinuityPage { page_reference } |
-        Route::Page { page_reference, .. } => html! { <RoutePage {page_reference} /> },
+        Route::DefaultContinuityPage { page_reference } | Route::Page { page_reference, .. } => {
+            html! { <RoutePage {page_reference} /> }
+        }
         Route::DefaultContinuitySearch | Route::Search { .. } => html! { <RouteSearch /> },
-         Route::NotFound => html! { <RouteNotFound />},
+        Route::NotFound => html! { <RouteNotFound />},
     }
 }
