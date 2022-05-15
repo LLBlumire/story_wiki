@@ -51,7 +51,7 @@ impl ReleaseTrackerHandle {
                 .as_ref()
                 .opt()
                 .and_then(|m| m.default_release(continuity_reference))
-                .map(|r| r.reference_name.as_str())
+                .map(|r| r.reference_name())
         };
         self.state
             .releases
@@ -65,20 +65,20 @@ impl ReleaseTrackerHandle {
             .continuities()
             .iter()
             .flat_map(|continuity| {
-                let active_release = self.active(&continuity.reference_name);
+                let active_release = self.active(&continuity.reference_name());
                 active_release.into_iter().flat_map(move |active_release| {
                     let mut seen = false;
                     manifest
-                        .releases(&continuity.reference_name)
+                        .releases(&continuity.reference_name())
                         .iter()
                         .take_while(move |release| {
                             let was_seen = seen;
-                            seen = &release.reference_name == active_release;
+                            seen = release.reference_name() == active_release;
                             !was_seen
                         })
                 })
             })
-            .map(|release| &release.reference_name[..])
+            .map(|release| release.reference_name())
             .collect()
     }
 }

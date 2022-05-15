@@ -37,33 +37,48 @@ pub fn RouteSearch() -> Html {
     let active_continuity = use_active_continuity();
 
     let manifest = manifest.unwrap();
-    let continuity_reference = active_continuity.active().unwrap();
+    let continuity = active_continuity.active().unwrap();
     let navigator = navigator.unwrap();
-
-    let manifest_has_multiple_continuities = !manifest.has_multiple_continuities();
-    let continuity_in_url = active_continuity.is_from_route();
-    if !manifest_has_multiple_continuities && continuity_in_url {
-        navigator.replace(Route::DefaultContinuitySearch);
-    }
-    if manifest_has_multiple_continuities && !continuity_in_url {
-        navigator.replace(Route::Search {
-            continuity_reference: continuity_reference.to_string(),
-        })
-    }
 
     let search = location
         .as_ref()
         .and_then(|location| location.query::<SearchQuery>().ok());
 
     let search_query = search.map(|search| search.query).unwrap_or_default();
-
     if search_query.is_empty() {
-        if let Some(page) = manifest.default_page(continuity_reference) {
+        if let Some(page) = manifest.default_page(continuity.reference_name()) {
             navigator.replace(Route::Page {
-                page_reference: page.reference_name.clone(),
-                continuity_reference: continuity_reference.to_string(),
+                page_reference: page.page_url().to_string(),
+                continuity_url_prefix: continuity.url_prefix().to_string(),
             })
         }
+    }
+
+    let manifest_has_multiple_continuities = manifest.has_multiple_continuities();
+    let continuity_in_url = active_continuity.is_from_route();
+    if !manifest_has_multiple_continuities && continuity_in_url {
+        navigator
+            .replace_with_query(
+                Route::DefaultContinuitySearch,
+                SearchQuery {
+                    query: search_query,
+                },
+            )
+            .unwrap();
+        return html! {};
+    }
+    if manifest_has_multiple_continuities && !continuity_in_url {
+        navigator
+            .replace_with_query(
+                Route::Search {
+                    continuity_url_prefix: continuity.url_prefix().to_string(),
+                },
+                SearchQuery {
+                    query: search_query,
+                },
+            )
+            .unwrap();
+        return html! {};
     }
 
     let mut title_results = HashMap::<SearchResult, usize>::new();
@@ -75,16 +90,16 @@ pub fn RouteSearch() -> Html {
     let observed_releases = release_tracker.observed_releases_references(&manifest);
 
     for page in manifest
-        .pages(continuity_reference)
+        .pages(continuity.reference_name())
         .iter()
-        .filter(|page| page.should_show(&observed_releases))
+        .filter(|page| page.should_show(&observed_releases, &continuity.prefix()))
     {
-        let tokenized_page_title = tokenize(&cleanup(&page.display_name)).collect::<Vec<_>>();
-        let tokenized_refernece_name = tokenize(&cleanup(&page.reference_name)).collect::<Vec<_>>();
+        let tokenized_page_title = tokenize(&cleanup(&page.display_name())).collect::<Vec<_>>();
+        let tokenized_refernece_name = tokenize(&cleanup(&page.page_url())).collect::<Vec<_>>();
         if tokenized_query == tokenized_page_title || tokenized_query == tokenized_refernece_name {
             navigator.replace(Route::Page {
-                page_reference: page.reference_name.clone(),
-                continuity_reference: continuity_reference.to_string(),
+                page_reference: page.page_url().to_string(),
+                continuity_url_prefix: continuity.url_prefix().to_string(),
             });
         }
 
@@ -95,31 +110,18 @@ pub fn RouteSearch() -> Html {
         if page_title_score > 0 {
             let entry = title_results
                 .entry(SearchResult {
-                    reference_name: page.reference_name.clone(),
-                    title: page.display_name.clone(),
+                    reference_name: page.page_url().to_string(),
+                    title: page.display_name().to_string(),
                 })
                 .or_default();
             *entry = (*entry).max(page_title_score);
         }
-        for title_peer in page
-            .title_peers
-            .iter()
-            .chain(
-                page.title_peers_cond
-                    .iter()
-                    .filter_map(|TitlePeerCond { peer, cond }| {
-                        Some(peer).filter(|_| {
-                            cond.iter()
-                                .all(|cond| should_show(&observed_releases, cond))
-                        })
-                    }),
-            )
-        {
+        for title_peer in page.title_peers(&observed_releases, &continuity.prefix()) {
             let tokenized_title_peer = tokenize(&cleanup(&title_peer)).collect::<Vec<_>>();
             if tokenized_query == tokenized_title_peer {
                 navigator.replace(Route::Page {
-                    page_reference: page.reference_name.clone(),
-                    continuity_reference: continuity_reference.to_string(),
+                    page_reference: page.page_url().to_string(),
+                    continuity_url_prefix: continuity.url_prefix().to_string(),
                 });
             }
             let page_title_peer_score = tokenized_query
@@ -129,28 +131,15 @@ pub fn RouteSearch() -> Html {
             if page_title_peer_score > 0 {
                 let entry = title_results
                     .entry(SearchResult {
-                        reference_name: page.reference_name.clone(),
-                        title: page.display_name.clone(),
+                        reference_name: page.page_url().to_string(),
+                        title: page.display_name().to_string(),
                     })
                     .or_default();
                 *entry = (*entry).max(page_title_peer_score);
             }
         }
 
-        for category in page
-            .categories
-            .iter()
-            .chain(
-                page.categories_cond
-                    .iter()
-                    .filter_map(|CategoryCond { category, cond }| {
-                        Some(category).filter(|_| {
-                            cond.iter()
-                                .all(|cond| should_show(&observed_releases, cond))
-                        })
-                    }),
-            )
-        {
+        for category in page.categories(&observed_releases, &continuity.prefix()) {
             let tokenized_category = tokenize(&cleanup(&category)).collect::<Vec<_>>();
             let page_category_score = tokenized_query
                 .iter()
@@ -159,27 +148,15 @@ pub fn RouteSearch() -> Html {
             if page_category_score > 0 {
                 let entry = category_results
                     .entry(SearchResult {
-                        reference_name: page.reference_name.clone(),
-                        title: page.display_name.clone(),
+                        reference_name: page.page_url().to_string(),
+                        title: page.display_name().to_string(),
                     })
                     .or_default();
                 *entry = (*entry).max(page_category_score);
             }
         }
 
-        let tokenized_keywords = tokenize(&cleanup(&page.keywords))
-            .chain(
-                page.keywords_cond
-                    .iter()
-                    .filter(|KeywordsCond { cond, .. }| {
-                        cond.iter()
-                            .all(|cond| should_show(&observed_releases, cond))
-                    })
-                    .flat_map(|KeywordsCond { keywords, .. }| {
-                        tokenize(&cleanup(keywords)).collect::<Vec<_>>()
-                    }),
-            )
-            .collect::<HashSet<_>>();
+        let tokenized_keywords = page.keywords(&observed_releases, &continuity.prefix());
         let page_keyword_score = tokenized_query
             .iter()
             .filter(|term| tokenized_keywords.contains(term.as_str()))
@@ -187,8 +164,8 @@ pub fn RouteSearch() -> Html {
         if page_keyword_score > 0 {
             let entry = keyword_results
                 .entry(SearchResult {
-                    reference_name: page.reference_name.clone(),
-                    title: page.display_name.clone(),
+                    reference_name: page.page_url().to_string(),
+                    title: page.display_name().to_string(),
                 })
                 .or_default();
             *entry = (*entry).max(page_keyword_score);
@@ -235,7 +212,7 @@ pub fn RouteSearch() -> Html {
                         to={
                             Route::Page {
                                 page_reference: reference_name.clone(),
-                                continuity_reference: continuity_reference.to_string()
+                                continuity_url_prefix: continuity.url_prefix().to_string()
                             }
                         }
                     >
@@ -255,7 +232,9 @@ pub fn RouteSearch() -> Html {
             <h1>{"Search"}</h1>
                 <p>{"Searching for: "}<strong>{format!("\"{search_query}\"")}</strong></p>
                 <hr />
-                { for results }
+                <ul class="noindent">
+                    { for results }
+                </ul>
             </section>
         </main>
     }

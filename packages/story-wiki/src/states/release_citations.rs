@@ -14,7 +14,9 @@ impl ReleaseCitationToggler {
     pub fn toggle<E: 'static>(&self) -> Callback<E> {
         self.dispatch.reduce_callback(move |state| {
             log::debug!("Toggling Release Citations");
-            state.shown = !state.shown;
+            web_sys::window()
+                .map(|window| window.alert_with_message("Release Citations In Development"));
+            state.shown = false;
         })
     }
 }

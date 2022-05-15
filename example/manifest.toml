@@ -3,10 +3,12 @@ title = "StoryWiki"
 [[continuities]]
 display_name = "Books"
 reference_name = "books"
+prefix = "b"
 
 [[continuities]]
 display_name = "TV & Movie"
 reference_name = "tv_movie"
+prefix = "e"
 
 [[releases.books]]
 display_name = "Book 1"
@@ -53,45 +55,52 @@ reference_name = "e6"
 
 [[releases.tv_movie]]
 display_name = "Movie"
-reference_name = "movie"
+reference_name = "em"
 begins_group = ""
 
 
 [[pages.books]]
 display_name = "Index"
-reference_name = "index"
+page_url = "index"
 resource_path = "site-content/books/index.md"
+categories = ["Meta"]
 
 [[pages.tv_movie]]
 display_name = "Index"
-reference_name = "index"
+page_url = "index"
 resource_path = "site-content/tv_movie/index.md"
+categories = ["Meta"]
 
 [[pages.books]]
 display_name = "Johan"
-reference_name = "johan"
+page_url = "johan"
 resource_path = "site-content/books/johan.md"
 title_peers = ["john"]
+categories = ["Characters"]
 
 [[pages.tv_movie]]
 display_name = "John"
-reference_name = "john"
+page_url = "john"
 resource_path = "site-content/tv_movie/john.md"
 title_peers = ["johan"]
+categories = ["Characters"]
 
 
 [[pages.books]]
 display_name = "Palace"
-reference_name = "palace"
+page_url = "palace"
 resource_path = "site-content/books/palace.md"
+categories = ["Locations"]
 
 [[pages.tv_movie]]
 display_name = "Palace"
-reference_name = "palace"
+page_url = "palace"
 resource_path = "site-content/tv_movie/palace.md"
+categories = ["Locations"]
 
 [[pages.books]]
 display_name = "The War"
-reference_name = "war"
+page_url = "war"
 resource_path = "site-content/books/war.md"
 show_cond = ["o-b3"]
+categories = ["Events"]

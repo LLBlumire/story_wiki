@@ -14,17 +14,18 @@ pub fn RouteRoot() -> Html {
     let navigator = navigator.unwrap();
     let manifest = manifest.unwrap();
 
-    let default_continuity = manifest
-        .default_continuity()
-        .map(|c| c.reference_name.to_string());
-    let default_page = default_continuity
+    let continuity = manifest.default_continuity();
+    let continuity_url_prefix = continuity.map(|c| c.url_prefix().to_string());
+    let continuity_reference_name = continuity.map(|c| c.reference_name());
+
+    let default_page = continuity_reference_name
         .as_deref()
         .and_then(|default_continuity| manifest.default_page(default_continuity))
-        .map(|p| p.reference_name.to_string());
+        .map(|p| p.page_url().to_string());
 
-    if let Some((continuity_reference, page_reference)) = default_continuity.zip(default_page) {
+    if let Some((continuity_url_prefix, page_reference)) = continuity_url_prefix.zip(default_page) {
         navigator.replace(Route::Page {
-            continuity_reference,
+            continuity_url_prefix,
             page_reference,
         });
     }

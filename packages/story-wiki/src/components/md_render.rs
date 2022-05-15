@@ -352,7 +352,7 @@ where
                                     if let Some(release) =
                                         self.manifest.release(self.continuity_reference, &tag)
                                     {
-                                        tag = release.display_name.clone()
+                                        tag = release.display_name().to_string()
                                     }
                                     if let Some(last) = self.tag_buf.pop() {
                                         let tag_children: VList = last.into_children();
@@ -374,7 +374,7 @@ where
                                     if let Some(release) =
                                         self.manifest.release(self.continuity_reference, &tag)
                                     {
-                                        tag = release.display_name.clone()
+                                        tag = release.display_name().to_string()
                                     }
                                     if let Some(last) = self.tag_buf.pop() {
                                         let tag_children: VList = last.into_children();

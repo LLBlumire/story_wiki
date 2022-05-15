@@ -187,7 +187,7 @@ footer {
     padding: var(--space-s);
     justify-content: space-between;
 }
-header input, header select, footer button {
+header input, header select, footer button, header a.categories {
     height: var(--space-l);
     border: 1px solid var(--neutral-10);
     appearance: none;
@@ -198,7 +198,8 @@ header input, header select, footer button {
 }
 header select,
 header input[type="search"], 
-footer button {
+footer button,
+header a.categories {
     padding-inline: var(--space-s);
 }
 header input[type="search"] {
@@ -210,10 +211,17 @@ header input:focus-visible,
 header select:hover,
 header select:focus-visible,
 footer button:hover,
-footer button:focus-visible {
+footer button:focus-visible,
+header a.categories:hover,
+header a.categories:focus-visible {
     outline: 1px solid blue;
 }
-
+header a {
+    text-decoration: none;
+    color: black;
+    display: grid;
+    place-items: center;
+}
 header > * {
     flex-grow: 1;
 }
@@ -242,7 +250,11 @@ aside {
     list-style: none;
     font-size: var(--step-2);
 }
-.search-result a {
+.category-entry {
+    list-style: none;
+    font-size: var(--step-1);
+}
+.search-result a, .category-entry a {
     text-decoration: none;
 }
 
@@ -281,4 +293,9 @@ span[data-cite-kind="excluded-content"]:hover span[data-cite-kind="excluded-tag"
 span[data-cite-kind="excluded-tag"] {
     border: 1px solid red;
     border-radius: 0.25rem;
+}
+
+/* === UTILITIES === */
+.noindent {
+    padding-left: 0;
 }

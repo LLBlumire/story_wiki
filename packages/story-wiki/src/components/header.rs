@@ -1,5 +1,6 @@
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
+use yew_router::prelude::*;
 use yew_router::hooks::{use_location, use_navigator};
 
 use crate::components::picker::continuity_picker::ContinuityPicker;
@@ -28,7 +29,9 @@ pub fn Header() -> Html {
 
     let manifest = manifest.unwrap();
     let navigator = navigator.unwrap();
-    let continuity_reference = active_continuity.active().unwrap().to_string();
+    let continuity = active_continuity.active().unwrap();
+
+    let continuity_url_prefix = continuity.url_prefix().to_string();
 
     let onsubmit = {
         let search_node_ref = search_node_ref.clone();
@@ -38,7 +41,7 @@ pub fn Header() -> Html {
             navigator
                 .push_with_query(
                     Route::Search {
-                        continuity_reference: continuity_reference.clone(),
+                        continuity_url_prefix: continuity_url_prefix.clone(),
                     },
                     SearchQuery { query: search_for },
                 )
@@ -68,9 +71,9 @@ pub fn Header() -> Html {
 
     html! {
         <header>
-            <span class="site-name">
-                {&manifest.title}
-            </span>
+            <Link<Route> classes="site-name" to={Route::Root}>
+                {manifest.title()}
+            </Link<Route>>
             <form {onsubmit}>
                 <input type="search" placeholder="Search" ref={search_node_ref}/>
                 <input type="submit" value="?" />
@@ -81,6 +84,16 @@ pub fn Header() -> Html {
             if manifest.has_multiple_releases() {
                 <ReleasePicker />
             }
+            <Link<Route> 
+                classes="categories"
+                to={
+                    Route::Categories {
+                        continuity_url_prefix: continuity.url_prefix().to_string()
+                    }
+                }
+            >
+                {"Categories"}
+            </Link<Route>>
         </header>
     }
 }

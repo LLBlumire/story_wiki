@@ -40,13 +40,13 @@ pub fn MainInner() -> Html {
     let manifest = use_manifest();
     let title_switcher = use_title_switcher();
 
-    let continuity_reference = active_continuity.active().unwrap();
+    let continuity = active_continuity.active().unwrap();
     let manifest = manifest.unwrap();
 
-    title_switcher.site(manifest.title.to_string());
+    title_switcher.site(manifest.title().to_string());
 
-    if let Some(continuity) = manifest.continuity(continuity_reference) {
-        title_switcher.continuity(continuity.display_name.to_string());
+    if let Some(continuity) = manifest.continuity(continuity.reference_name()) {
+        title_switcher.continuity(continuity.display_name().to_string());
     }
 
     html! {

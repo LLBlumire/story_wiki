@@ -24,7 +24,7 @@ pub fn RoutePage(props: &RoutePageProps) -> Html {
     let active_continuity = use_active_continuity();
     let navigator = use_navigator();
 
-    let continuity_reference = active_continuity.active().unwrap();
+    let continuity = active_continuity.active().unwrap();
     let manifest = manifest.unwrap();
     let navigator = navigator.unwrap();
 
@@ -37,12 +37,12 @@ pub fn RoutePage(props: &RoutePageProps) -> Html {
     }
     if manifest_has_multiple_continuities && !continuity_in_url {
         navigator.replace(Route::Page {
-            continuity_reference: continuity_reference.to_string(),
+            continuity_url_prefix: continuity.url_prefix().to_string(),
             page_reference: props.page_reference.clone(),
         })
     }
 
-    let page = manifest.page(&continuity_reference, &props.page_reference);
+    let page = manifest.page(continuity.reference_name(), &props.page_reference);
 
     let observed_releases_references =
         active_release_tracker.observed_releases_references(&manifest);
@@ -50,25 +50,26 @@ pub fn RoutePage(props: &RoutePageProps) -> Html {
     match page {
         None => html! { <main>{"Page not found."}</main> },
         Some(page) => {
-            if !page.should_show(&observed_releases_references) {
+            if !page.should_show(&observed_releases_references, &continuity.prefix()) {
                 log::trace!("Page not available on active release");
                 navigator
                     .replace_with_query(
                         Route::Search {
-                            continuity_reference: continuity_reference.to_string(),
+                            continuity_url_prefix: continuity.url_prefix().to_string(),
                         },
                         SearchQuery {
                             query: props.page_reference.clone(),
                         },
                     )
                     .unwrap();
+                return html! {}
             }
-            title_switcher.page(page.display_name.to_string());
+            title_switcher.page(page.display_name().to_string());
             html! {
                 <main>
                     <PageRender
-                        resource_path={page.resource_path.clone()}
-                        continuity={continuity_reference.to_string()}
+                        resource_path={page.resource_path().to_string()}
+                        continuity={continuity.reference_name().to_string()}
                     />
                 </main>
             }
